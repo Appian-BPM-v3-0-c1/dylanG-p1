@@ -10,8 +10,6 @@ public class MainMenu implements iMenu{
     @Override
     public void start() {
 
-
-
         char userInput = ' ';
         Scanner scanner = new Scanner(System.in);
         boolean booEx = false;

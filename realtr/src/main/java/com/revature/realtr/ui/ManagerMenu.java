@@ -13,6 +13,7 @@ import com.revature.realtr.services.UserService;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class ManagerMenu implements iMenu {
@@ -22,6 +23,7 @@ public class ManagerMenu implements iMenu {
     private final HistoryService historyService;
     private final UserService userService;
     private final LocationService locService;
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     public ManagerMenu(User user, PenService penService, HistoryService historyService, UserService userService, LocationService locService) {
         this.user = user;
@@ -111,22 +113,29 @@ public class ManagerMenu implements iMenu {
             System.out.println("[" + (i + 1) + "]" + userList.get(i));
         }
 
-        while (!booEx) {
-            System.out.print("\nPlease choose which customer's order history you'd like to view by referencing [user id]: ");
-            input = scanner.nextInt();
-            System.out.println();
+        try {
+            while (!booEx) {
+                System.out.print("\nPlease choose which customer's order history you'd like to view by referencing [user id]: ");
+                input = scanner.nextInt();
+                System.out.println();
 
-            List<History> historyList = historyService.getHistoryDAO().findHistoryById(input);
+                List<History> historyList = historyService.getHistoryDAO().findHistoryById(input);
 
-            if (input <= historyList.size()) {
-                for (History h : historyList) {
-                    System.out.println(h.getDate() + " | " + penService.getPenDAO().findPenById(h.getFp_id()));
-                    booEx = true;
+                if (input <= historyList.size()) {
+                    for (History h : historyList) {
+                        System.out.println(h.getDate() + " | " + penService.getPenDAO().findPenById(h.getFp_id()));
+                        booEx = true;
+                    }
+                } else {
+                    System.out.println("Invalid input or the user has no order history.");
+                    break;
                 }
-            } else {
-                System.out.println("Invalid input or the user has no order history.");
-                break;
+
+
             }
+        } catch (InputMismatchException e) {
+            System.out.println("\nInvalid input. Please try again.");
+            start();
         }
     }
 
@@ -142,13 +151,15 @@ public class ManagerMenu implements iMenu {
         }
 
         while (!booEx) {
+
+
             System.out.print("\nPlease choose which location's order history you'd like to view by referencing [location id]: ");
             input = scanner.nextInt();
             System.out.println();
 
             List<History> historyList = historyService.getHistoryDAO().findHistoryByLocId(input);
 
-            if (input <= historyList.size()  + 1) {
+            if (input <= historyList.size()) {
                 for (History h : historyList) {
 
                     System.out.println(h.getDate() + "\n\n" + penService.getPenDAO().findPenById(h.getFp_id()) + "\n" + userService.getUserDAO().findById(h.getUser_id()) + "\n------------\n");
@@ -175,7 +186,7 @@ public class ManagerMenu implements iMenu {
         }
 
         while (!booEx) {
-            System.out.println("\nPlease choose which location's inventory you'd like to view by referencing [location id]");
+            System.out.print("\nPlease choose which location's inventory you'd like to view by referencing [location id]: ");
             input = scanner.nextInt();
 
             List<Pen> penList = penService.getPenDAO().findPenByLocation(input);
@@ -307,9 +318,16 @@ public class ManagerMenu implements iMenu {
         boolean booEx = false;
         while(!booEx) {
 
-            for (int i = 0; i < historyList.size(); i++) {
-                System.out.println(historyList.get(i));
+            for (History h : historyList) {
+                System.out.println(".___________________________________________________________________________________________________________.");
+                System.out.println("| Order Date: " + h.getDate() + " History ID: " + h.getHist_id() + " | Pen ID: " + h.getFp_id() + " | Location ID: " + h.getLoc_id() +
+                        " | Price: " + h.getPrice() + " | User ID: " + h.getUser_id() + " |");
+                System.out.println("'-----------------------------------------------------------------------------------------------------------'");
             }
+
+//            for (int i = 0; i < historyList.size(); i++) {
+//                System.out.println(historyList.get(i));
+//            }
 
             booEx = true;
         }

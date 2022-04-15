@@ -1,5 +1,7 @@
 package com.revature.realtr.models;
 
+import java.text.DecimalFormat;
+
 public class Pen {
 
     private int fp_id;
@@ -10,6 +12,8 @@ public class Pen {
     private String description;
     private String nib;
     private int loc_id;
+
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     public Pen() {
 
@@ -92,7 +96,7 @@ public class Pen {
 
     @Override
     public String toString() {
-        return "Brand: " + brand + " | Model: " + model + " | Price: US$ " + price + " | Quantity in Stock: " + qty +
+        return "Brand: " + brand + " | Model: " + model + " | Price: US$ " + df.format(price) + " | Quantity in Stock: " + qty +
                  "\nDescription: " + description + " | Nib Type & Material: " + nib + "\n";
 
     }

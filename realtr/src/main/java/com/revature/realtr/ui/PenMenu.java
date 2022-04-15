@@ -61,7 +61,8 @@ public class PenMenu implements iMenu {
                         viewCart();
                         break;
                     case '4':
-                        break exit;
+                        booEx = true;
+                        break;
                     default:
                         System.out.println("Invalid menu entry. Please try again.");
                         break;
@@ -85,8 +86,7 @@ public class PenMenu implements iMenu {
         if (scanner.next().charAt(0) == 'y') {
             buyPens(penList);
         } else {
-            System.out.println("Invalid input. Please try again.\n");
-            System.out.print("Selection: ");
+            start();
         }
     }
 
@@ -102,7 +102,7 @@ public class PenMenu implements iMenu {
             if (input < penList.size()) {
                 Pen selectedPen = penList.get(input);
 
-                System.out.println("You've chosen the " + selectedPen.getBrand() + " " + selectedPen.getModel() + ".");
+                System.out.println("\nYou've chosen the " + selectedPen.getBrand() + " " + selectedPen.getModel() + ".");
                 System.out.print("Would you like to add this to your cart? (y/n) ");
 
                 if (scanner.next().charAt(0) == 'y') {
@@ -141,8 +141,6 @@ public class PenMenu implements iMenu {
 
     private void viewCart() {
 
-
-
         List<Cart> carts = cartService.getCartDAO().findCartById(user.getUser_id());
 
         try {
@@ -150,7 +148,7 @@ public class PenMenu implements iMenu {
                 throw new CartIsEmptyException();
             }
         } catch (CartIsEmptyException e) {
-            System.out.println("This is a custom exception informing the user that their cart is empty. Please try again.");
+            System.out.println("This is a custom exception informing the user that their cart is empty. Please add something to your cart and try again.");
             start();
 
         }
@@ -163,12 +161,15 @@ public class PenMenu implements iMenu {
         System.out.print("\nWould you like to checkout? (y/n) ");
 
 
-        if (scanner.next().charAt(0) == 'y') {
+        if (scanner.next().charAt(0) == 'y' && !carts.isEmpty()) {
 
             checkout(carts);
 
-        } else {
+        } else if (carts.isEmpty()) {
+            System.out.println("Nothing to checkout. Cart is empty.");
+            start();
 
+        } else {
             System.out.print("Would you like to clear your cart? (y/n) ");
 
             if (scanner.next().charAt(0) == 'y') {
@@ -181,8 +182,6 @@ public class PenMenu implements iMenu {
 
     }
 
-
-
     private void checkout(List<Cart> carts) {
 
         History history = new History();
@@ -191,6 +190,7 @@ public class PenMenu implements iMenu {
             history.setFp_id(c.getFp_id());
             history.setUser_id(c.getUser_id());
             history.setLoc_id(c.getLoc_id());
+            history.setPrice(c.getPrice());
 
             historyService.getHistoryDAO().save(history);
             penService.getPenDAO().removeById(c.getFp_id());
