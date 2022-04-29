@@ -1,4 +1,4 @@
-# plume
+# plume (3/28/22 - 4/15/22)
 ### Dylan Gierok - Project 1 (P1) Description
 
 'plume' is a simulated e-commerce platform for fountain pens with a variety of functions for both standard/"default" users and adminstrator/"manager" users.
