@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -109,7 +108,7 @@ public class CartDAO implements CrudDAO<Cart> {
         return carts;
     }
 
-    public float totalPrice (int user_id) {
+    public float totalPrice(int user_id) {
 
 
         float f = 0.00f;
@@ -121,14 +120,13 @@ public class CartDAO implements CrudDAO<Cart> {
 
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 f = (rs.getFloat("sum"));
             }
 
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-
 
 
         return f;

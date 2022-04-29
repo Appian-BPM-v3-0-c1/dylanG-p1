@@ -5,7 +5,7 @@ import com.revature.realtr.services.UserService;
 
 import java.util.Scanner;
 
-public class MainMenu implements iMenu{
+public class MainMenu implements iMenu {
 
     @Override
     public void start() {

@@ -8,7 +8,7 @@ import com.revature.realtr.util.UserDNEException;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class LoginMenu implements iMenu{
+public class LoginMenu implements iMenu {
     private final UserService userService;
 
     public LoginMenu(UserService userService) {
@@ -67,8 +67,8 @@ public class LoginMenu implements iMenu{
         String state = "";
         String zip = "";
 
-        while(true) {
-            while(true){
+        while (true) {
+            while (true) {
                 System.out.print("Please enter a username: ");
                 username = scanner.next();
 
@@ -187,8 +187,8 @@ public class LoginMenu implements iMenu{
                     break;
 
                 } else if (user.getUsertype().equals("manager")) {
-                        new ManagerMenu(user, new PenService(new PenDAO()), new HistoryService(new HistoryDAO()), new UserService(new UserDAO()), new LocationService(new LocationDAO())).start();
-                        break;
+                    new ManagerMenu(user, new PenService(new PenDAO()), new HistoryService(new HistoryDAO()), new UserService(new UserDAO()), new LocationService(new LocationDAO())).start();
+                    break;
                 }
             }
         }

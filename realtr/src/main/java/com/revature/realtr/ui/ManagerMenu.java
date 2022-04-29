@@ -1,6 +1,5 @@
 package com.revature.realtr.ui;
 
-import com.revature.realtr.connection.DatabaseConnection;
 import com.revature.realtr.models.History;
 import com.revature.realtr.models.Location;
 import com.revature.realtr.models.Pen;
@@ -10,11 +9,11 @@ import com.revature.realtr.services.LocationService;
 import com.revature.realtr.services.PenService;
 import com.revature.realtr.services.UserService;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.text.DecimalFormat;
-import java.util.*;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
 
 public class ManagerMenu implements iMenu {
 
@@ -52,7 +51,7 @@ public class ManagerMenu implements iMenu {
             System.out.println("[6] Add new pens to stock");
             System.out.println("[7] Show order histories by date");
             System.out.println("[8] Search customers by name");
-            System.out.println("[9] Return to main menu\n");
+            System.out.println("[9] Return to login menu\n");
 
             System.out.print("Selection: ");
 
@@ -109,7 +108,7 @@ public class ManagerMenu implements iMenu {
 
         System.out.println();
 
-        for (int i = 0; i < userList.size(); i++){
+        for (int i = 0; i < userList.size(); i++) {
             System.out.println("[" + (i + 1) + "]" + userList.get(i));
         }
 
@@ -191,7 +190,7 @@ public class ManagerMenu implements iMenu {
 
             List<Pen> penList = penService.getPenDAO().findPenByLocation(input);
 
-            for (int i = 0; i < penList.size(); i++){
+            for (int i = 0; i < penList.size(); i++) {
                 System.out.println(penList.get(i));
             }
 
@@ -211,7 +210,7 @@ public class ManagerMenu implements iMenu {
             System.out.println("[" + (i + 1) + "]" + penList.get(i));
         }
 
-        while(!booEx) {
+        while (!booEx) {
             System.out.print("Please choose which pen's inventory you'd like to adjust by referencing the [number listed]: ");
 
             input = scanner.nextInt() - 1;
@@ -289,7 +288,7 @@ public class ManagerMenu implements iMenu {
                 System.out.println("Description: " + description);
                 System.out.println("Nib type: " + nib);
                 System.out.print("Location: ");
-                if (loc_id == 1)  {
+                if (loc_id == 1) {
                     System.out.println("Jackson, MS");
                 } else if (loc_id == 2) {
                     System.out.println("Cincinnati, OH");
@@ -316,18 +315,14 @@ public class ManagerMenu implements iMenu {
         List<History> historyList = historyService.getHistoryDAO().sortByDate();
 
         boolean booEx = false;
-        while(!booEx) {
+        while (!booEx) {
 
             for (History h : historyList) {
-                System.out.println(".___________________________________________________________________________________________________________.");
-                System.out.println("| Order Date: " + h.getDate() + " History ID: " + h.getHist_id() + " | Pen ID: " + h.getFp_id() + " | Location ID: " + h.getLoc_id() +
-                        " | Price: " + h.getPrice() + " | User ID: " + h.getUser_id() + " |");
-                System.out.println("'-----------------------------------------------------------------------------------------------------------'");
+                System.out.println("___________________________________________________________________________________________________________");
+                System.out.println(" Order Date: " + h.getDate() + " History ID: " + h.getHist_id() + " | Pen ID: " + h.getFp_id() + " | Location ID: " + h.getLoc_id() +
+                        " | Price: " + h.getPrice() + " | User ID: " + h.getUser_id());
+                System.out.println("-----------------------------------------------------------------------------------------------------------");
             }
-
-//            for (int i = 0; i < historyList.size(); i++) {
-//                System.out.println(historyList.get(i));
-//            }
 
             booEx = true;
         }
@@ -341,7 +336,7 @@ public class ManagerMenu implements iMenu {
 
         boolean booEx = false;
 
-        while(!booEx) {
+        while (!booEx) {
             System.out.print("Please enter the user's last name: ");
             lastName = scanner.next().substring(0, 1).toUpperCase(Locale.ROOT);
             System.out.print("\nPlease enter the user's first name: ");
@@ -355,10 +350,9 @@ public class ManagerMenu implements iMenu {
                 break;
             }
 
-
             for (User u : userList) {
                 System.out.println("User ID: " + u.getUser_id() + ", Name: " + u.getFirstName() + " " + u.getLastName() + ", Username: " + u.getUsername() + "\nAddress: "
-                + u.getAddress() + " " + u.getCity() + ", " + u.getState() + " " + u.getZip() + "\n");
+                        + u.getAddress() + " " + u.getCity() + ", " + u.getState() + " " + u.getZip() + "\n");
 
             }
 

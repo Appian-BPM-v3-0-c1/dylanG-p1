@@ -179,7 +179,7 @@ public class HistoryDAO implements CrudDAO<History> {
 
     }
 
-    public float totalPrice (int user_id) {
+    public float totalPrice(int user_id) {
         float f = 0.00f;
 
         try {
@@ -188,7 +188,7 @@ public class HistoryDAO implements CrudDAO<History> {
 
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 f = (rs.getFloat("sum"));
             }
         } catch (SQLException e) {
@@ -196,7 +196,6 @@ public class HistoryDAO implements CrudDAO<History> {
         }
         return f;
     }
-
 
 
 }

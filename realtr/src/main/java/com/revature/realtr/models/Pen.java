@@ -97,7 +97,7 @@ public class Pen {
     @Override
     public String toString() {
         return "Brand: " + brand + " | Model: " + model + " | Price: US$ " + df.format(price) + " | Quantity in Stock: " + qty +
-                 "\nDescription: " + description + " | Nib Type & Material: " + nib + "\n";
+                "\nDescription: " + description + " | Nib Type & Material: " + nib + "\n";
 
     }
 }

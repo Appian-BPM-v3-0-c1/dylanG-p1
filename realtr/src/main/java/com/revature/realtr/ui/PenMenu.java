@@ -38,7 +38,8 @@ public class PenMenu implements iMenu {
 
         System.out.println("\nWelcome, " + user.getFirstName());
 
-        exit: {
+        exit:
+        {
             while (!booEx) {
                 System.out.println("\nPlease choose from the following options:");
                 System.out.println("[1] View our collection");

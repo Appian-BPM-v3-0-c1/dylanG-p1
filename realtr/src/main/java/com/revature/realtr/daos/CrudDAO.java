@@ -2,13 +2,13 @@ package com.revature.realtr.daos;
 
 import java.util.List;
 
-public interface CrudDAO <T> {
+public interface CrudDAO<T> {
 
-    int save(T obj); //saves any object passed into DB
+    int save(T obj);
 
-    List<T> findAll(); //retrieve all tables
+    List<T> findAll();
 
-    T findById(int id); //locates specific table by id
+    T findById(int id);
 
     List<T> findAllById(int id);
 

@@ -39,7 +39,7 @@ public class LocationDAO implements CrudDAO<Location> {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM locations");
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 Location loc = new Location();
 
                 loc.setLoc_id(rs.getInt("loc_id"));

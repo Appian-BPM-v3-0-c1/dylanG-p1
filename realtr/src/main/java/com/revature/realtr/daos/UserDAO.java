@@ -73,9 +73,9 @@ public class UserDAO implements CrudDAO<User> {
     public User findById(int user_id) {
         User user = new User();
 
-        try{
+        try {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE user_id = ?");
-            ps.setInt(1,user_id);
+            ps.setInt(1, user_id);
 
             ResultSet rs = ps.executeQuery();
 

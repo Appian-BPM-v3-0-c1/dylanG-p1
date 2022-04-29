@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PenDAO implements CrudDAO<Pen>{
+public class PenDAO implements CrudDAO<Pen> {
     Connection con = DatabaseConnection.getCon();
 
     @Override
@@ -133,7 +133,7 @@ public class PenDAO implements CrudDAO<Pen>{
             ps.setInt(1, loc_id);
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 Pen pen = new Pen();
 
                 pen.setFp_id(rs.getInt("fp_id"));
@@ -154,7 +154,7 @@ public class PenDAO implements CrudDAO<Pen>{
         return penList;
     }
 
-    public void adjustPenQuantity (int fp_id, int qty) {
+    public void adjustPenQuantity(int fp_id, int qty) {
 
         try {
             PreparedStatement ps = con.prepareStatement("UPDATE fountain_pens SET qty = ? WHERE fp_id = ?");
